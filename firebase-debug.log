@@ -1,0 +1,21 @@
+[debug] [2025-02-13T17:25:21.779Z] ----------------------------------------------------------------------
+[debug] [2025-02-13T17:25:21.782Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dougl\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-02-13T17:25:21.782Z] CLI Version:   13.31.0
+[debug] [2025-02-13T17:25:21.782Z] Platform:      win32
+[debug] [2025-02-13T17:25:21.782Z] Node Version:  v22.14.0
+[debug] [2025-02-13T17:25:21.783Z] Time:          Thu Feb 13 2025 14:25:21 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2025-02-13T17:25:21.783Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-02-13T17:25:21.789Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-02-13T17:25:21.790Z] > authorizing via signed-in user (douglasaquino4@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\dougl\Documents\Meus_Projetos\Projetos\AppCasa\app-da-casa
+
