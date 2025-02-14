@@ -1,0 +1,76 @@
+// Paleta de cores
+$primary-color: #007bff;
+$secondary-color: #f8f9fa;
+$text-color: #333;
+$border-radius: 8px;
+
+// Estilos gerais
+body {
+  font-family: Arial, sans-serif;
+  background-color: $secondary-color;
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  
+}
+
+// Container principal
+.app-container {
+  width: 90%;
+  max-width: 400px;
+  background: white;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+// Formulário
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  input, select, button {
+    padding: 10px;
+    border-radius: $border-radius;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+  button {
+    background-color: $primary-color;
+    color: white;
+    cursor: pointer;
+    border: none;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Gráfico
+.chart-container {
+  display: flex;
+  justify-content: center;
+}
+
+// Responsividade para telas maiores
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-container {
+    max-width: 800px;
+  }
+}

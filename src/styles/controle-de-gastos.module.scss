@@ -1,0 +1,72 @@
+
+.container {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.expensesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.userColumn {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.userColumn h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.expensesList {
+  list-style: none;
+  padding: 0;
+}
+
+.expenseItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.expenseItem:last-child {
+  border-bottom: none;
+}
+
+.addExpense {
+  margin-top: 20px;
+}
+
+.addExpense h2 {
+  margin-bottom: 10px;
+}
+
+.input, .select, .button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}

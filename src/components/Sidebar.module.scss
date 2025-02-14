@@ -1,0 +1,62 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  padding: 20px;
+
+  &.collapsed {
+    width: 60px;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin: 10px 0;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .toggleButton {
+    position: absolute;
+    top: 10px;
+    right: -40px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+  }
+}
+
+.collapsed {
+  transform: translateX(-100%);
+}
+
+.expanded {
+  transform: translateX(0);
+}
