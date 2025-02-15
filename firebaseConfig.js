@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, writeBatch, doc, deleteDoc } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
@@ -31,14 +31,19 @@ const getUsers = async () => {
   return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
-const getExpenses = async () => {
-  const querySnapshot = await getDocs(collection(db, "expenses"));
+const getExpenses = async (collectionName) => {
+  const querySnapshot = await getDocs(collection(db, collectionName));
   return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
-const addExpense = async (expense) => {
-  const docRef = await addDoc(collection(db, "expenses"), expense);
-  return { id: docRef.id, ...expense };
+const addExpense = async (expense, collectionName) => {
+  try {
+    const docRef = await addDoc(collection(db, collectionName), expense);
+    return { id: docRef.id, ...expense };
+  } catch (error) {
+    console.error('Error adding expense:', error);
+    throw error;
+  }
 };
 
 const signIn = async (email, password) => {
@@ -50,4 +55,22 @@ const signIn = async (email, password) => {
   }
 };
 
-export { db, auth, collection, addDoc, getDocs, getUsers, getExpenses, addExpense, getItems, addItem, signIn };
+const savePurchase = async (purchaseData) => {
+  const batch = writeBatch(db);
+  const purchaseCollection = collection(db, "purchases");
+  const docRef = doc(purchaseCollection); // Create a new document reference
+  batch.set(docRef, purchaseData);
+  await batch.commit();
+};
+
+const deleteItem = async (id) => {
+  try {
+    const itemRef = doc(db, "items", id);
+    await deleteDoc(itemRef);
+  } catch (error) {
+    console.error('Error deleting item:', error);
+    throw error;
+  }
+};
+
+export { db, auth, collection, addDoc, getDocs, getUsers, getExpenses, addExpense, getItems, addItem, signIn, savePurchase, deleteItem };

@@ -32,10 +32,15 @@
     color: white;
     text-decoration: none;
     font-size: 1.2em;
+    display: block;
+    padding: 10px;
+    background-color: #444; // Slightly different background color for links
+    margin-bottom: 5px; // Add margin to differentiate links
   }
 
   a:hover {
     text-decoration: underline;
+    background-color: #555; // Darker background color on hover
   }
 
   .toggleButton {
@@ -50,6 +55,13 @@
     padding: 10px;
     margin-bottom: 20px;
     font-size: 1.2em;
+  }
+
+  @media (max-width: 768px) {
+    width: 50vw; // Extend to half the screen width on mobile
+    ul {
+      font-size: 2rem; // Increase font size for navigation options
+    }
   }
 }
 

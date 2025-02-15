@@ -1,31 +1,32 @@
-
 .container {
   display: flex;
+  font-size: 1.5rem; /* Increased font size */
 }
 
 .content {
   flex: 1;
-  padding: 20px;
+  padding: 30px; /* Increased padding */
 }
 
 .expensesContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px; /* Increased gap */
 }
 
 .userColumn {
   flex: 1;
-  min-width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  background-color: #f9f9f9;
+  min-width: 250px; /* Increased min-width */
+  border: 2px solid #333; /* Darker border for better contrast */
+  border-radius: 10px;
+  padding: 20px; /* Increased padding */
+  background-color: #e0e0e0; /* Slightly darker background */
 }
 
 .userColumn h2 {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px; /* Increased margin */
+  font-size: 1.75rem; /* Increased font size */
 }
 
 .expensesList {
@@ -36,8 +37,8 @@
 .expenseItem {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0;
-  border-bottom: 1px solid #eee;
+  padding: 10px 0; /* Increased padding */
+  border-bottom: 2px solid #bbb; /* Darker border for better contrast */
 }
 
 .expenseItem:last-child {
@@ -45,20 +46,22 @@
 }
 
 .addExpense {
-  margin-top: 20px;
+  margin-top: 30px; /* Increased margin */
 }
 
 .addExpense h2 {
-  margin-bottom: 10px;
+  margin-bottom: 20px; /* Increased margin */
+  font-size: 1.75rem; /* Increased font size */
 }
 
 .input, .select, .button {
   display: block;
   width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-bottom: 15px; /* Increased margin */
+  padding: 12px; /* Increased padding */
+  border: 2px solid #333; /* Darker border for better contrast */
+  border-radius: 6px;
+  font-size: 1.25rem; /* Increased font size */
 }
 
 .button {
@@ -69,4 +72,34 @@
 
 .button:hover {
   background-color: #0056b3;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px; /* Increased margin */
+}
+
+.table th, .table td {
+  border: 2px solid #333; /* Darker border for better contrast */
+  padding: 12px; /* Increased padding */
+  text-align: left;
+  font-size: 1.25rem; /* Increased font size */
+}
+
+.table th {
+  background-color: #d0d0d0; /* Slightly darker background */
+}
+
+.evenRow {
+  background-color: #e0e0e0; /* Slightly darker background */
+}
+
+.oddRow {
+  background-color: #ffffff;
+}
+
+.totalRow {
+  font-weight: bold;
+  background-color: #c0c0c0; /* Slightly darker background */
 }

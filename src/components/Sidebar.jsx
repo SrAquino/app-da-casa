@@ -4,7 +4,7 @@ import { FaBars, FaMoneyBillWave, FaChartPie, FaShoppingCart } from 'react-icons
 import styles from './Sidebar.module.scss';
 
 const Sidebar = () => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);

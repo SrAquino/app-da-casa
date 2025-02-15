@@ -2,6 +2,13 @@
   padding: 20px;
   font-size: 1.2em;
   background-color: #f8f9fa;
+  display: flex;
+  font-size: 1.5rem; /* Increased font size */
+}
+
+.content {
+  flex: 1;
+  padding: 30px; /* Increased padding */
 }
 
 .title {
@@ -17,6 +24,8 @@
   background-color: #e9ecef;
   padding: 10px;
   border-radius: 5px;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 .list {
@@ -26,15 +35,42 @@
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
 }
 
 .listItem {
   padding: 10px;
   border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0; /* Increased padding */
+  border-bottom: 2px solid #bbb; /* Darker border for better contrast */
 }
 
 .listItem:last-child {
   border-bottom: none;
+  margin: 10px;
+}
+
+.listItem span {
+  flex-grow: 1;
+  
+}
+
+.deleteButton {
+  margin-left: 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #cc0000;
 }
 
 .input, .select, .button {
@@ -45,6 +81,13 @@
   box-sizing: border-box;
   border: 1px solid #ced4da;
   border-radius: 5px;
+  display: block;
+  width: 100%;
+  margin-bottom: 15px; /* Increased margin */
+  padding: 12px; /* Increased padding */
+  border: 2px solid #333; /* Darker border for better contrast */
+  border-radius: 6px;
+  font-size: 1.25rem; /* Increased font size */
 }
 
 .button {
@@ -52,10 +95,35 @@
   color: white;
   border: none;
   cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
 }
 
 .button:hover {
   background-color: #218838;
+  background-color: #0056b3;
+}
+
+.purchaseContainer {
+  margin-top: 30px; /* Increased margin */
+}
+
+.purchaseList {
+  list-style: none;
+  padding: 0;
+}
+
+.purchaseItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0; /* Increased padding */
+  border-bottom: 2px solid #bbb; /* Darker border for better contrast */
+}
+
+.purchaseItem span {
+  flex-grow: 1;
 }
 
 @media (max-width: 600px) {

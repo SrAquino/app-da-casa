@@ -1,16 +1,18 @@
 .container {
   display: flex;
+  font-size: 1.5rem; /* Increased font size */
 }
 
 .sidebar {
-  width: 250px;
+  width: 300px; /* Increased width */
   background-color: #343a40;
   color: white;
-  padding: 20px;
+  padding: 30px; /* Increased padding */
 }
 
 .sidebar h2 {
   margin-top: 0;
+  font-size: 1.75rem; /* Increased font size */
 }
 
 .sidebar ul {
@@ -19,12 +21,13 @@
 }
 
 .sidebar li {
-  margin: 10px 0;
+  margin: 15px 0; /* Increased margin */
 }
 
 .sidebar a {
   color: white;
   text-decoration: none;
+  font-size: 1.25rem; /* Increased font size */
 }
 
 .sidebar a:hover {
@@ -33,5 +36,75 @@
 
 .content {
   flex-grow: 1;
-  padding: 20px;
+  padding: 30px; /* Increased padding */
+}
+
+.title {
+  font-size: 2.5em; /* Increased font size */
+  margin-bottom: 30px; /* Increased margin */
+}
+
+.filterContainer {
+  margin-bottom: 30px; /* Increased margin */
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px; /* Increased margin */
+  font-weight: bold;
+  font-size: 1.25rem; /* Increased font size */
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 12px; /* Increased padding */
+  border: 2px solid #333; /* Darker border for better contrast */
+  border-radius: 6px;
+  font-size: 1.5rem; /* Further increased font size */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px; /* Increased margin */
+}
+
+.table th, .table td {
+  border: 2px solid #333; /* Darker border for better contrast */
+  padding: 12px; /* Increased padding */
+  text-align: left;
+  font-size: 1.25rem; /* Increased font size */
+}
+
+.table th {
+  background-color: #d0d0d0; /* Slightly darker background */
+}
+
+.chartContainer {
+  margin-top: 50px; /* Increased margin */
+}
+
+.userExpenses, .debtMessages {
+  margin-top: 50px; /* Increased margin */
+}
+
+.userExpenses {
+  margin-top: 50px; /* Increased margin */
+  font-size: 1.5rem; /* Further increased font size */
+}
+
+.userExpenses ul, .debtMessages ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.userExpenses li, .debtMessages li {
+  margin: 15px 0; /* Increased margin */
+  font-size: 1.5rem; /* Further increased font size */
+}
+
+.debtMessages li {
+  margin: 10px 0; /* Increased margin */
+  font-size: 1.25rem; /* Increased font size */
 }
