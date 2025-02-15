@@ -63,6 +63,20 @@ const savePurchase = async (purchaseData) => {
   await batch.commit();
 };
 
+const saveTotalPurchase = async (totalPurchaseData) => {
+  try {
+    await addDoc(collection(db, "totalPurchases"), totalPurchaseData);
+  } catch (error) {
+    console.error('Error saving total purchase:', error);
+    throw error;
+  }
+};
+
+const getPurchases = async () => {
+  const querySnapshot = await getDocs(collection(db, "purchases"));
+  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
 const deleteItem = async (id) => {
   try {
     const itemRef = doc(db, "items", id);
@@ -73,4 +87,4 @@ const deleteItem = async (id) => {
   }
 };
 
-export { db, auth, collection, addDoc, getDocs, getUsers, getExpenses, addExpense, getItems, addItem, signIn, savePurchase, deleteItem };
+export { db, auth, collection, addDoc, getDocs, getUsers, getExpenses, addExpense, getItems, addItem, signIn, savePurchase, saveTotalPurchase, getPurchases, deleteItem };
