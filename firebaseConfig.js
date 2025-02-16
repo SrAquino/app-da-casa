@@ -46,6 +46,20 @@ const addExpense = async (expense, collectionName) => {
   }
 };
 
+const getCoins = async (collectionName) => {
+  const querySnapshot = await getDocs(collection(db, collectionName));
+  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+const addCoin = async (coin, collectionName) => {
+  const docRef = await addDoc(collection(db, collectionName), coin);
+  return { id: docRef.id, ...coin };
+};
+
+const deleteCoin = async (id) => {
+  await deleteDoc(doc(db, "coins", id));
+};
+
 const signIn = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -87,4 +101,4 @@ const deleteItem = async (id) => {
   }
 };
 
-export { db, auth, collection, addDoc, getDocs, getUsers, getExpenses, addExpense, getItems, addItem, signIn, savePurchase, saveTotalPurchase, getPurchases, deleteItem };
+export { db, auth, collection, addDoc, getDocs, getUsers, getExpenses, addExpense, getItems, addItem, signIn, savePurchase, saveTotalPurchase, getPurchases, deleteItem, getCoins, addCoin, deleteCoin };

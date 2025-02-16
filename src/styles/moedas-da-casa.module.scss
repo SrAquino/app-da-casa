@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1.2em; /* Aumenta a fonte */
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; /* Centraliza o texto */
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.evenRow {
+  background-color: #f9f9f9;
+}
+
+.oddRow {
+  background-color: #fff;
+}
+
+.deleteButton {
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.addCoin {
+  margin-top: 20px;
+}
+
+.totalRow {
+  font-weight: bold;
+}

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
+import ProtectedRoute from '../components/ProtectedRoute'; // Import ProtectedRoute
 import { getUsers, getExpenses, addExpense } from '../../firebaseConfig';
 import { useAuth } from '../context/AuthProvider'; // Import useAuth
 import styles from '@/styles/controle-de-gastos.module.scss';
@@ -61,127 +62,133 @@ const ControleDeGastos = () => {
 
   const usersWithExpenses = [...new Set(expenses.map(expense => expense.user))];
 
-  return (
-    <div className={styles.container}>
-      <Sidebar />
-      <div className={styles.content}>
-        <div>
-          <h1>Controle de Gastos</h1>
-          {user ? (
-            <p>Bem-vindo, {user.email}!</p>
-          ) : (
-            <p>Usuário não autenticado.</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="month">Selecione o mês:</label>
-          <input
-            type="month"
-            id="month"
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            className={styles.input}
-          />
-        </div>
-        <div>
-          <label htmlFor="user">Selecione o usuário:</label>
-          <select
-            id="user"
-            value={selectedUser}
-            onChange={(e) => setSelectedUser(e.target.value)}
-            className={styles.input}
-          >
-            <option value="">Selecione um usuário</option>
-            {usersWithExpenses.map(user => (
-              <option key={user} value={user}>
-                {users.find(u => u.email.split('@')[0] === user)?.name || user}
-              </option>
-            ))}
-          </select>
-        </div>
-        {selectedUser && (
-          <div className={styles.userTable}>
-            <h2>Gastos de {selectedUser}</h2>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Dia</th> {/* Alterado para "Dia" */}
-                  <th>Gasto</th>
-                  <th>Categoria</th>
-                  <th>Descrição</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: daysInMonth }, (_, i) => {
-                  const date = `${selectedMonth}-${String(i + 1).padStart(2, '0')}`;
-                  const dailyExpenses = userExpenses.filter(expense => expense.date === date);
-                  const dailyTotal = dailyExpenses.reduce((sum, expense) => sum + parseFloat(expense.value), 0);
+  const formatCurrency = (value) => {
+    return `R$ ${parseFloat(value).toFixed(2)}`;
+  };
 
-                  return (
-                    <tr key={date} className={i % 2 === 0 ? styles.evenRow : styles.oddRow}>
-                      <td>{String(i + 1).padStart(2, '0')}</td> {/* Exibe apenas o dia */}
-                      <td>{dailyTotal}</td>
-                      <td>
-                        {dailyExpenses.map(expense => (
-                          <div key={expense.id}>{expense.category}</div>
-                        ))}
-                      </td>
-                      <td>
-                        {dailyExpenses.map(expense => (
-                          <div key={expense.id}>{expense.description}</div>
-                        ))}
-                      </td>
-                    </tr>
-                  );
-                })}
-                <tr className={styles.totalRow}>
-                  <td>Total</td>
-                  <td>{totalExpense}</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+  return (
+    <ProtectedRoute>
+      <div className={styles.container}>
+        <Sidebar />
+        <div className={styles.content}>
+          <div>
+            <h1>Controle de Gastos</h1>
+            {user ? (
+              <p>Bem-vindo, {user.email}!</p>
+            ) : (
+              <p>Usuário não autenticado.</p>
+            )}
           </div>
-        )}
-        <div className={styles.addExpense}>
-          <h2>Adicionar Gasto</h2>
-          <input
-            type="date"
-            value={newExpense.date}
-            onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
-            className={styles.input}
-          />
-          <input
-            type="number"
-            value={newExpense.value}
-            onChange={(e) => setNewExpense({ ...newExpense, value: e.target.value })}
-            placeholder="Valor"
-            className={styles.input}
-          />
-          <select
-            value={newExpense.category}
-            onChange={(e) => setNewExpense({ ...newExpense, category: e.target.value })}
-            className={styles.input}
-          >
-            <option value="">Selecione uma categoria</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <input
-            type="text"
-            value={newExpense.description}
-            onChange={(e) => setNewExpense({ ...newExpense, description: e.target.value })}
-            placeholder="Descrição (opcional)"
-            className={styles.input}
-          />
-          <button onClick={addExpenseToDB} className={styles.button}>Adicionar</button>
+          <div>
+            <label htmlFor="month">Selecione o mês:</label>
+            <input
+              type="month"
+              id="month"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+          <div>
+            <label htmlFor="user">Selecione o usuário:</label>
+            <select
+              id="user"
+              value={selectedUser}
+              onChange={(e) => setSelectedUser(e.target.value)}
+              className={styles.input}
+            >
+              <option value="">Selecione um usuário</option>
+              {usersWithExpenses.map(user => (
+                <option key={user} value={user}>
+                  {users.find(u => u.email.split('@')[0] === user)?.name || user}
+                </option>
+              ))}
+            </select>
+          </div>
+          {selectedUser && (
+            <div className={styles.userTable}>
+              <h2>Gastos de {selectedUser}</h2>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Dia</th> {/* Alterado para "Dia" */}
+                    <th>Gasto</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({ length: daysInMonth }, (_, i) => {
+                    const date = `${selectedMonth}-${String(i + 1).padStart(2, '0')}`;
+                    const dailyExpenses = userExpenses.filter(expense => expense.date === date);
+                    const dailyTotal = dailyExpenses.reduce((sum, expense) => sum + parseFloat(expense.value), 0);
+
+                    return (
+                      <tr key={date} className={i % 2 === 0 ? styles.evenRow : styles.oddRow}>
+                        <td>{String(i + 1).padStart(2, '0')}</td> {/* Exibe apenas o dia */}
+                        <td>{formatCurrency(dailyTotal)}</td>
+                        <td>
+                          {dailyExpenses.map(expense => (
+                            <div key={expense.id}>{expense.category}</div>
+                          ))}
+                        </td>
+                        <td>
+                          {dailyExpenses.map(expense => (
+                            <div key={expense.id}>{expense.description}</div>
+                          ))}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                  <tr className={styles.totalRow}>
+                    <td>Total</td>
+                    <td>{formatCurrency(totalExpense)}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
+          <div className={styles.addExpense}>
+            <h2>Adicionar Gasto</h2>
+            <input
+              type="date"
+              value={newExpense.date}
+              onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
+              className={styles.input}
+            />
+            <input
+              type="number"
+              value={newExpense.value}
+              onChange={(e) => setNewExpense({ ...newExpense, value: e.target.value })}
+              placeholder="Valor"
+              className={styles.input}
+            />
+            <select
+              value={newExpense.category}
+              onChange={(e) => setNewExpense({ ...newExpense, category: e.target.value })}
+              className={styles.input}
+            >
+              <option value="">Selecione uma categoria</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              value={newExpense.description}
+              onChange={(e) => setNewExpense({ ...newExpense, description: e.target.value })}
+              placeholder="Descrição (opcional)"
+              className={styles.input}
+            />
+            <button onClick={addExpenseToDB} className={styles.button}>Adicionar</button>
+          </div>
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 };
 
