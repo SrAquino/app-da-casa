@@ -26,10 +26,11 @@ const addItem = async (item) => {
   return { id: docRef.id, ...item, category: item.category };
 };
 
-const getUsers = async () => {
+/*const getUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
   return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
+*/
 
 const getExpenses = async (collectionName) => {
   const querySnapshot = await getDocs(collection(db, collectionName));
@@ -56,8 +57,8 @@ const addCoin = async (coin, collectionName) => {
   return { id: docRef.id, ...coin };
 };
 
-const deleteCoin = async (id) => {
-  await deleteDoc(doc(db, "coins", id));
+const deleteCoin = async (id, collectionName) => {
+  await deleteDoc(doc(db, collectionName, id));
 };
 
 const signIn = async (email, password) => {
@@ -101,4 +102,4 @@ const deleteItem = async (id) => {
   }
 };
 
-export { db, auth, collection, addDoc, getDocs, getUsers, getExpenses, addExpense, getItems, addItem, signIn, savePurchase, saveTotalPurchase, getPurchases, deleteItem, getCoins, addCoin, deleteCoin };
+export { db, auth, collection, addDoc, getDocs, getExpenses, addExpense, getItems, addItem, signIn, savePurchase, saveTotalPurchase, getPurchases, deleteItem, getCoins, addCoin, deleteCoin };

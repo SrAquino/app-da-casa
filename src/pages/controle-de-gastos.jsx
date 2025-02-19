@@ -8,20 +8,17 @@ import { useAuth } from '../context/AuthProvider'; // Import useAuth
 import styles from '@/styles/controle-de-gastos.module.scss';
 
 const ControleDeGastos = () => {
-  const [users, setUsers] = useState([]);
+
   const [expenses, setExpenses] = useState([]);
-  const [newExpense, setNewExpense] = useState({ date: '', value: '', category: '', description: '' });
-  const [selectedMonth, setSelectedMonth] = useState('');
+  const [newExpense, setNewExpense] = useState({ date: new Date().toISOString().split('T')[0], value: '', category: '', description: '', type: 'Total', selectedUsers: [] });
+  const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7));
   const [selectedUser, setSelectedUser] = useState('');
   const { user } = useAuth(); // Get the authenticated user
 
   const categories = ['Mercado', 'Açougue', 'Padaria', 'Horti', 'Pet', 'Contas', 'Lazer', 'Transporte', 'Outros', 'Relação passada'];
+  const expenseTypes = ['Total', 'Individual', 'Selecionados'];
 
   useEffect(() => {
-    // Fetch users from Firestore
-    getUsers()
-      .then(fetchedUsers => setUsers(fetchedUsers))
-      .catch(error => console.error('Error fetching users:', error));
 
     if (selectedMonth) {
       const [year, month] = selectedMonth.split('-');
@@ -45,7 +42,7 @@ const ControleDeGastos = () => {
     addExpense(expense, `${month}${year}`)
       .then(addedExpense => {
         setExpenses([...expenses, addedExpense]);
-        setNewExpense({ date: '', value: '', category: '', description: '' });
+        setNewExpense({ date: new Date().toISOString().split('T')[0], value: '', category: '', description: '', type: 'Total', selectedUsers: [] });
       })
       .catch(error => console.error('Error adding expense:', error));
   };
@@ -64,6 +61,32 @@ const ControleDeGastos = () => {
 
   const formatCurrency = (value) => {
     return `R$ ${parseFloat(value).toFixed(2)}`;
+  };
+
+  const handleCategoryChange = (e) => {
+    const category = e.target.value;
+    setNewExpense(prevExpense => ({
+      ...prevExpense,
+      category,
+      type: category === 'Relação passada' ? 'Selecionados' : prevExpense.type,
+      selectedUsers: category === 'Relação passada' ? prevExpense.selectedUsers.slice(0, 1) : prevExpense.selectedUsers
+    }));
+  };
+
+  const handleCheckboxChange = (user) => {
+    setNewExpense(prevExpense => {
+      let selectedUsers;
+      if (prevExpense.category === 'Relação passada') {
+        selectedUsers = prevExpense.selectedUsers.includes(user)
+          ? []
+          : [user];
+      } else {
+        selectedUsers = prevExpense.selectedUsers.includes(user)
+          ? prevExpense.selectedUsers.filter(u => u !== user)
+          : [...prevExpense.selectedUsers, user];
+      }
+      return { ...prevExpense, selectedUsers };
+    });
   };
 
   return (
@@ -100,7 +123,7 @@ const ControleDeGastos = () => {
               <option value="">Selecione um usuário</option>
               {usersWithExpenses.map(user => (
                 <option key={user} value={user}>
-                  {users.find(u => u.email.split('@')[0] === user)?.name || user}
+                  {user}
                 </option>
               ))}
             </select>
@@ -115,6 +138,7 @@ const ControleDeGastos = () => {
                     <th>Gasto</th>
                     <th>Categoria</th>
                     <th>Descrição</th>
+                    <th>Divisão</th> {/* Nova coluna adicionada */}
                   </tr>
                 </thead>
                 <tbody>
@@ -137,12 +161,18 @@ const ControleDeGastos = () => {
                             <div key={expense.id}>{expense.description}</div>
                           ))}
                         </td>
+                        <td>
+                          {dailyExpenses.map(expense => (
+                            <div key={expense.id}>{expense.type}</div>
+                          ))}
+                        </td>
                       </tr>
                     );
                   })}
                   <tr className={styles.totalRow}>
                     <td>Total</td>
                     <td>{formatCurrency(totalExpense)}</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                   </tr>
@@ -167,7 +197,7 @@ const ControleDeGastos = () => {
             />
             <select
               value={newExpense.category}
-              onChange={(e) => setNewExpense({ ...newExpense, category: e.target.value })}
+              onChange={handleCategoryChange}
               className={styles.input}
             >
               <option value="">Selecione uma categoria</option>
@@ -177,6 +207,33 @@ const ControleDeGastos = () => {
                 </option>
               ))}
             </select>
+            <select
+              value={newExpense.type}
+              onChange={(e) => setNewExpense({ ...newExpense, type: e.target.value })}
+              className={styles.input}
+              disabled={newExpense.category === 'Relação passada'}
+            >
+              <option value="Total">Dividir para todos</option>
+              <option value="Individual">Gasto individual</option>
+              <option value="Selecionados">Dividir com</option>
+            </select>
+            {newExpense.type === 'Selecionados' && (
+              <div className={styles.userCheckboxes}>
+                {usersWithExpenses.map(userWithExpense => (
+                  <div key={userWithExpense}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={newExpense.selectedUsers.includes(userWithExpense)}
+                        onChange={() => handleCheckboxChange(userWithExpense)}
+                        disabled={userWithExpense === user.email.split('@')[0] || (newExpense.category === 'Relação passada' && newExpense.selectedUsers.length >= 1 && !newExpense.selectedUsers.includes(userWithExpense))}
+                      />
+                      {userWithExpense}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
             <input
               type="text"
               value={newExpense.description}

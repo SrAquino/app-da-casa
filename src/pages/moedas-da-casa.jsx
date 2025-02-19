@@ -8,23 +8,16 @@ import { useAuth } from '../context/AuthProvider';
 import styles from '@/styles/moedas-da-casa.module.scss';
 
 const MoedasDaCasa = () => {
+  const { user } = useAuth();
   const [coins, setCoins] = useState([]);
   const [newCoin, setNewCoin] = useState({ date: new Date().toISOString().split('T')[0], type: '', value: '' });
-  const [selectedMonth, setSelectedMonth] = useState('');
-  const [selectedUser, setSelectedUser] = useState('');
-  const { user } = useAuth();
+  const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7));
+  const [selectedUser, setSelectedUser] = useState(user ? user.email.split('@')[0] : '');
 
   const coinTypes = ['🏋🏻', '🎟', '🎨', '🍷', '💰', '🥇', '❤‍', '🌀', '📌'];
 
   useEffect(() => {
-    if (selectedMonth) {
-      const [year, month] = selectedMonth.split('-');
-      const collectionName = `coins_${month}${year}`;
-
-      getCoins(collectionName)
-        .then(fetchedCoins => setCoins(fetchedCoins))
-        .catch(error => console.error('Error fetching coins:', error));
-    }
+    reloadUserCoins();
   }, [selectedMonth]);
 
   const addCoinToDB = (type, value) => {
@@ -41,6 +34,7 @@ const MoedasDaCasa = () => {
           acc[type] = { add: '', spend: '' };
           return acc;
         }, {}));
+        reloadUserCoins();
       })
       .catch(error => console.error('Error adding coin:', error));
   };
@@ -62,16 +56,19 @@ const MoedasDaCasa = () => {
           acc[type] = { add: '', spend: '' };
           return acc;
         }, {}));
+        reloadUserCoins();
       })
       .catch(error => console.error('Error spending coin:', error));
   };
 
   const deleteCoinFromDB = (id, collectionName) => {
-    deleteCoin(id)
-      .then(() => {
-        setCoins(coins.filter(coin => coin.id !== id));
-      })
-      .catch(error => console.error('Error deleting coin:', error));
+    if (window.confirm("Você tem certeza que deseja excluir este registro?")) {
+      deleteCoin(id, collectionName)
+        .then(() => {
+          setCoins(coins.filter(coin => coin.id !== id));
+        })
+        .catch(error => console.error('Error deleting coin:', error));
+    }
   };
 
   const getDaysInMonth = (month) => {
@@ -107,6 +104,36 @@ const MoedasDaCasa = () => {
       },
     });
   };
+
+  const reloadUserCoins = () => {
+    if (selectedMonth) {
+      const [year, month] = selectedMonth.split('-');
+      const collectionName = `coins_${month}${year}`;
+
+      getCoins(collectionName)
+        .then(fetchedCoins => setCoins(fetchedCoins))
+        .catch(error => console.error('Error fetching coins:', error));
+    }
+  };
+
+  const getPodium = () => {
+    const podium = coinTypes.map(type => {
+      const userTotals = usersWithCoins.map(user => {
+        const userTotal = coins
+          .filter(coin => coin.user === user && coin.type === type)
+          .reduce((sum, coin) => sum + parseFloat(coin.value), 0);
+        return { user, total: userTotal };
+      });
+      userTotals.sort((a, b) => b.total - a.total);
+      const topUser = userTotals[0] || { user: '', total: 0 };
+      const secondUser = userTotals[1] || { total: 0 };
+      const lead = topUser.total - secondUser.total;
+      return { type, topUser: topUser.user, lead };
+    });
+    return podium;
+  };
+
+  const podium = getPodium();
 
   return (
     <ProtectedRoute>
@@ -157,6 +184,7 @@ const MoedasDaCasa = () => {
                     {coinTypes.map(type => (
                       <th key={type}>{type}</th>
                     ))}
+
                   </tr>
                 </thead>
                 <tbody>
@@ -174,6 +202,12 @@ const MoedasDaCasa = () => {
                               .map(coin => (
                                 <div key={coin.id}>
                                   {coin.value}
+                                  <button
+                                    onClick={() => deleteCoinFromDB(coin.id, `coins_${selectedMonth.split('-')[1]}${selectedMonth.split('-')[0]}`)}
+                                    className={styles.deleteButton}
+                                  >
+                                    Excluir
+                                  </button>
                                 </div>
                               ))}
                           </td>
@@ -263,6 +297,27 @@ const MoedasDaCasa = () => {
                     </button>
                   </td>
                 </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className={styles.podium}>
+            <h2>Pódio</h2>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Moeda</th>
+                  <th>Usuário</th>
+                  <th>Vantagem</th>
+                </tr>
+              </thead>
+              <tbody>
+                {podium.map(({ type, topUser, lead }) => (
+                  <tr key={type}>
+                    <td>{type}</td>
+                    <td>{topUser}</td>
+                    <td>{lead}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
