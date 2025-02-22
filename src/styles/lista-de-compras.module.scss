@@ -103,6 +103,23 @@
   text-align: right; /* Align text to the right */
 }
 
+.sizeInput {
+  width: 80px; /* Adjust width to fit up to 4 digits */
+  text-align: right; /* Align text to the right */
+  font-size: 1.2em;
+  padding: 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 15px; /* Increased margin */
+  padding: 12px; /* Increased padding */
+  border: 2px solid #333; /* Darker border for better contrast */
+  border-radius: 6px;
+  font-size: 1.25rem; /* Increased font size */
+}
+
 .button {
   background-color: #28a745;
   color: white;
@@ -190,6 +207,95 @@
 .bebida {
   background-color: #e0f7fa;
   border-left: 5px solid #00bcd4;
+}
+
+.pastPurchasesContainer {
+  margin-top: 30px;
+}
+
+.purchaseCard {
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  width: calc(33.333% - 20px); /* Three cards per row with margin */
+  box-sizing: border-box;
+  vertical-align: top;
+  font-family: 'Arial', sans-serif;
+}
+
+.purchaseCard h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: #343a40;
+}
+
+.purchaseCard p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #495057;
+  display: flex;
+  justify-content: space-between;
+}
+
+.purchaseCard .total {
+  border-top: 1px solid #ced4da;
+  padding-top: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .purchaseCard {
+    width: calc(50% - 20px); /* Two cards per row on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .purchaseCard {
+    width: calc(100% - 20px); /* One card per row on mobile screens */
+  }
+}
+
+.openListsContainer {
+  margin-top: 30px;
+}
+
+.openListCard {
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  width: calc(33.333% - 20px); /* Three cards per row with margin */
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.openListCard h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.openListCard button {
+  margin-right: 10px;
+}
+
+@media (max-width: 900px) {
+  .openListCard {
+    width: calc(50% - 20px); /* Two cards per row on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .openListCard {
+    width: calc(100% - 20px); /* One card per row on mobile screens */
+  }
 }
 
 @media (max-width: 600px) {

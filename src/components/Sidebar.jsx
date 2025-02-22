@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { FaBars, FaMoneyBillWave, FaChartPie, FaShoppingCart, FaCoins } from 'react-icons/fa';
+import { FaBars, FaMoneyBillWave, FaChartPie, FaShoppingCart, FaCoins, FaDumbbell } from 'react-icons/fa';
 import styles from './Sidebar.module.scss';
 
 const Sidebar = () => {
@@ -40,6 +40,11 @@ const Sidebar = () => {
         <li>
           <Link href="/moedas-da-casa">
             {isExpanded ? 'Moedas da Casa' : <FaCoins />}
+          </Link>
+        </li>
+        <li>
+          <Link href="/academia">
+            {isExpanded ? 'Academia' : <FaDumbbell />}
           </Link>
         </li>
       </ul>

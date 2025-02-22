@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.content h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.exerciseSection, .workoutSection, .performanceSection {
+  margin-bottom: 40px;
+}
+
+.exerciseSection h2, .workoutSection h2, .performanceSection h2 {
+  margin-bottom: 10px;
+}
+
+.exerciseSection h3, .workoutSection h3, .performanceSection h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.list, .hiddenList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hiddenList {
+  display: none;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #fff;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inactiveExercise {
+  background-color: #f8d7da;
+}
+
+.exerciseSection input[type="text"], .workoutSection input[type="text"], .performanceSection input[type="text"],
+.exerciseSection select, .workoutSection select, .performanceSection select,
+.exerciseSection input[type="number"], .workoutSection input[type="number"], .performanceSection input[type="number"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.exerciseSection button, .workoutSection button, .performanceSection button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+.exerciseSection button:hover, .workoutSection button:hover, .performanceSection button:hover {
+  background-color: #0056b3;
+}
+
+.expandButton {
+  margin-left: auto;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.expandButton:hover {
+  background-color: #0056b3;
+}
+
+.statusButton {
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.statusButton:hover {
+  background-color: #218838;
+}
+
+.deleteButton {
+  padding: 5px 10px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.cancelButton {
+  padding: 5px 10px;
+  background-color: #ffc107;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.cancelButton:hover {
+  background-color: #e0a800;
+}
+
+.chartContainer {
+  margin-top: 20px;
+}
+
+.addExercise {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
